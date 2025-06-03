@@ -10,7 +10,7 @@ A [Seaside](https://github.com/seasidest/seaside) component for [Pharo](https://
 Metacello new
     repository: 'github://rko281/BootstrapTable-Pharo:main';
     baseline: 'BootstrapTable';
-    load: 'all'
+    load: 'default'
 ```
 * All required packages and prerequisites (including [Seaside](https://github.com/seasidest/seaside) and [Seaside-Bootstrap5](https://github.com/astares/Seaside-Bootstrap5)) will be downloaded and installed.
 
