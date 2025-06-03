@@ -191,7 +191,7 @@ SBSTableSingleColumn >> handleSortCallbackWith:  params [
 
 	result := (self sortBlock value: row1 value: row2) ifTrue: [-1] ifFalse: [1].
 
-	self requestContext respond: [ :response  | result displayOn: response]
+	self requestContext respond: [ :response  | result displayStringOn: response]
 ]
 
 { #category : 'testing' }

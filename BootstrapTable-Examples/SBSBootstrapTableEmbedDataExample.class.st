@@ -37,7 +37,7 @@ SBSBootstrapTableEmbedDataExample >> createTable [
 			(SBSTableColumn new
 				label: 'Item Price';
 				accessor: #price;
-				renderBlock: [ :html :price | html text: ('$', price displayString)];
+				renderBlock: [ :html :price | html text: ('$', price greaseString)];
 				yourself);
 		yourself
 ]

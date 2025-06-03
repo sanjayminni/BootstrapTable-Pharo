@@ -24,7 +24,7 @@ SBSTableExampleProductEditor >> fieldAt: aSymbol put: aString [
 SBSTableExampleProductEditor >> loadFieldsWith: script [
 
 	script << (script jQuery: (self fieldAt: #name)) value: self model name.
-	script << (script jQuery: (self fieldAt: #price)) value: self model price displayString.
+	script << (script jQuery: (self fieldAt: #price)) value: self model price greaseString.
 	script << (script jQuery: (self fieldAt: #inStockResult)) value: self model inStock displayString.
 	script << (script jQuery: (self fieldAt: #inStock)) propertyAt: #checked put: self model inStock.
 

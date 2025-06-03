@@ -40,7 +40,7 @@ SBSBootstrapTableFooterExample >> createTable [
 				label: 'Item Price';
 				accessor: #price;
 				footerIsTotal;
-				renderBlock: [ :html :price | html text: ('$', price displayString)];
+				renderBlock: [ :html :price | html text: ('$', price greaseString)];
 				yourself);
 		yourself
 ]

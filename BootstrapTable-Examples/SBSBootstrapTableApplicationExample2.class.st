@@ -53,7 +53,7 @@ SBSBootstrapTableApplicationExample2 >> createTable [
 				isSortable: true;
 				alignRight;
 				footerIsTotal;
-				renderBlock: [ :html :price | html text: ('$', price displayString)];
+				renderBlock: [ :html :price | html text: ('$', price greaseString)];
 				yourself);
 		addColumn: 
 			(SBSTableColumn new
