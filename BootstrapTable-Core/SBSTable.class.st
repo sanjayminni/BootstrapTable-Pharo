@@ -248,7 +248,7 @@ SBSTable >> handlePageChangeCallback: aString [
 
 	| params |
 
-	params := WAJsonParser parse: '[<1s>]' << aString.
+	params := WAJsonParser parse: ('[<1s>]' expandMacrosWith: aString).
 
 	pageNum := params first.
 	pageSize := params second.
@@ -285,12 +285,9 @@ SBSTable >> handleSelectionsChangedCallback: aString [
 
 	| rowIds |
 
-	rowIds := WAJsonParser parse: '[<1s>]' << aString.
+	rowIds := WAJsonParser parse: ('[<1s>]' expandMacrosWith: aString).
 
 	selections := (rowIds collect: [ :each | self rowWithId: each])
-
-	
-
 ]
 
 { #category : 'callbacks' }

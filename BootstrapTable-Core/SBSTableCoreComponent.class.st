@@ -81,7 +81,7 @@ SBSTableCoreComponent >> option: aSymbol default: defaultValue [
 { #category : 'options' }
 SBSTableCoreComponent >> option: aSymbol value: anObject [
 
-	(self validOptions includes: aSymbol) ifFalse: [Notification signal: 'unknown <1s> option <2p>' << {self class name. aSymbol}].
+	(self validOptions includes: aSymbol) ifFalse: [Notification signal: ('unknown <1s> option <2p>' expandMacrosWith: {self class name. aSymbol})].
 
 	anObject isNil 
 		ifTrue: [options removeKey: aSymbol ifAbsent: []]
