@@ -63,7 +63,8 @@ SBSBootstrapTableApplicationExample >> createTable [
 		clickToSelect: true;
 		detailComponentClass: SBSTableExampleProductEditor;
 		option: #toolbar value: '#toolbar';
-		options: #(#showRefresh #showToggle #showFullscreen #showColumns #showColumnsToggleAll) value: true;
+		option: #exportTypes value: #('json' 'xml' 'png' 'csv' 'txt' 'sql' 'doc' 'excel' 'xlsx' 'pdf') asJson;
+		options: #(#showRefresh #showToggle #showFullscreen #showColumns #showColumnsToggleAll #showExport) value: true;
 
 		addRowSelector;
 		addColumn: 
@@ -179,4 +180,14 @@ SBSBootstrapTableApplicationExample >> renderToolbarOn: html [
 					disabled;
 					onClick: (html jQuery ajax script: [ :script | self removeSelectionsWithScript: script]);
 					with: 'Remove']
+]
+
+{ #category : 'updating' }
+SBSBootstrapTableApplicationExample >> updateRoot: anHtmlRoot [
+
+	super updateRoot: anHtmlRoot.
+
+	"intentionally kept separate in example just to illustrate"
+	SBSTableExportCDNDeploymentLibrary addLoadScriptTo: anHtmlRoot.
+	
 ]

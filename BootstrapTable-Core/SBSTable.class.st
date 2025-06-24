@@ -1042,6 +1042,7 @@ SBSTable >> validOptions [
 		#detailViewAlign
 		#detailViewByClick
 		#detailViewIcon
+		#exportTypes 
 		#escape
 		#escapeTitle
 		#filterOptions
@@ -1100,6 +1101,7 @@ SBSTable >> validOptions [
 		#showColumns
 		#showColumnsSearch
 		#showColumnsToggleAll
+		#showExport 
 		#showExtendedPagination
 		#showFooter
 		#showFullscreen
