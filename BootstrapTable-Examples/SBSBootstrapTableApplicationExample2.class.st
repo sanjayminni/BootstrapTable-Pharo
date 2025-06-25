@@ -24,13 +24,14 @@ SBSBootstrapTableApplicationExample2 >> createTable [
 		id: #table;
 		fetchData;
 		list: self list;
-		hasPagination: true;
+		"hasPagination: true;" "seems this has a conflict if set to true and #showPaginationSwitch is used - a walkback appears when switched"
 		hasSearch: true;
 		hasFooter: true;
 		clickToSelect: true;
 		detailComponentClass: SBSTableExampleProductEditor;
 		option: #toolbar value: '#toolbar';
-		options: #(#showRefresh #showToggle #showFullscreen #showColumns #showColumnsToggleAll) value: true;
+		option: #exportTypes value: #('json' 'xml' 'png' 'csv' 'txt' 'sql' 'doc' 'excel' 'xlsx' 'pdf') asJson;
+		options: #(#showRefresh #showToggle #showFullscreen #showColumns #showColumnsToggleAll #showExport #showPaginationSwitch) value: true;
 
 		addRowSelector;
 		addColumn: 

@@ -6,9 +6,15 @@ Class {
 }
 
 { #category : 'accessing - defaults' }
+SBSTableCDNDeploymentLibrary class >> bsTableVersion [
+
+	^ '1.24.1'
+]
+
+{ #category : 'accessing - defaults' }
 SBSTableCDNDeploymentLibrary class >> cdnCSSLocation [
 
-	^'https://cdn.jsdelivr.net/npm/bootstrap-table@1.24.1/dist/bootstrap-table.min.css'
+	^'https://cdn.jsdelivr.net/npm/bootstrap-table@{1}/dist/bootstrap-table.min.css' format: { self bsTableVersion } 
 ]
 
 { #category : 'accessing - defaults' }
@@ -21,7 +27,7 @@ SBSTableCDNDeploymentLibrary class >> cdnCSSLocationIntegrity [
 { #category : 'accessing - defaults' }
 SBSTableCDNDeploymentLibrary class >> cdnJSLocation [
 
-	^'https://cdn.jsdelivr.net/npm/bootstrap-table@1.24.1/dist/bootstrap-table.min.js'
+	^'https://cdn.jsdelivr.net/npm/bootstrap-table@{1}/dist/bootstrap-table.min.js' format: { self bsTableVersion }
 ]
 
 { #category : 'accessing - defaults' }
