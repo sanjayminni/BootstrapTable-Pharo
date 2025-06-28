@@ -13,6 +13,14 @@ JSFunction class >> named: aString [
 ]
 
 { #category : '*BootstrapTable-Javascript' }
+JSFunction >> named: aString [
+
+	"Convert the receiver to a named function"
+
+	^JSNamedFunction named: aString function: self
+]
+
+{ #category : '*BootstrapTable-Javascript' }
 JSFunction class >> named: aString arguments: anArray [
 
 	^JSNamedFunction new

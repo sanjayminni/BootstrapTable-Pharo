@@ -24,7 +24,7 @@ SBSBootstrapTableServerSidePaginationExample >> createTable [
 		fetchData;
 		list: self list;
 		hasPagination: true;
-		option: #height value: 600;
+		option: #showPaginationSwitch value: true;
 
 		addColumn: 
 			(SBSTableColumn new
@@ -40,7 +40,7 @@ SBSBootstrapTableServerSidePaginationExample >> createTable [
 			(SBSTableColumn new
 				label: 'Item Price';
 				accessor: #price;
-				renderBlock: [ :html :price | html text: ('$', price greaseString)];
+				formatExpression: 'value.toLocaleString(''en-US'', {style: ''currency'', currency: ''USD''})';
 				yourself);
 		yourself
 ]

@@ -64,7 +64,7 @@ SBSTableSingleColumn >> applyOptionsTo: aTableHeading [
 	self 
 		option: #field value: self fieldName;
 		option: #sortable value: self isSortable.
-	self needsFormatterCallback ifTrue: [self option: #formatter value: 'columnFormatter', self id].
+	self needsFormatterScript ifTrue: [self option: #formatter value: 'columnFormatter', self id].
 	self needsSortCallback ifTrue: [self option: #sorter value: 'columnSorter', self id].
 	self needsFooterCallback ifTrue: [self option: #footerFormatter value: 'columnFooter', self id].
 
@@ -271,7 +271,7 @@ SBSTableSingleColumn >> needsFooterCallback [
 ]
 
 { #category : 'testing' }
-SBSTableSingleColumn >> needsFormatterCallback [
+SBSTableSingleColumn >> needsFormatterScript [
 
 	^self subclassResponsibility
 ]
@@ -303,7 +303,7 @@ SBSTableSingleColumn >> renderFooterScriptOn: html [
 		add: statement; 
 		returnExpression: 'html'.
 
-	html script: function asJavascript
+	html script: function
 ]
 
 { #category : 'rendering' }
@@ -328,7 +328,7 @@ SBSTableSingleColumn >> renderOn: html [
 { #category : 'rendering' }
 SBSTableSingleColumn >> renderScriptsOn: html [
 
-	self needsFormatterCallback ifTrue: [self renderFormatterScriptOn: html].
+	self needsFormatterScript ifTrue: [self renderFormatterScriptOn: html].
 	self needsSortCallback ifTrue: [self renderSortScriptOn: html].
 	self needsFooterCallback ifTrue: [self renderFooterScriptOn: html]
 ]
@@ -351,7 +351,7 @@ SBSTableSingleColumn >> renderSortScriptOn: html [
 				yourself);
 		returnExpression: 'sortResult'.
 
-	html script: function asJavascript
+	html script: function
 ]
 
 { #category : 'accessing' }

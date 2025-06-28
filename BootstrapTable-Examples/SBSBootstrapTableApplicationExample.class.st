@@ -63,7 +63,6 @@ SBSBootstrapTableApplicationExample >> createTable [
 		clickToSelect: true;
 		detailComponentClass: SBSTableExampleProductEditor;
 		option: #toolbar value: '#toolbar';
-		option: #exportTypes value: #('json' 'xml' 'png' 'csv' 'txt' 'sql' 'doc' 'excel' 'xlsx' 'pdf') asJson;
 		options: #(#showRefresh #showToggle #showFullscreen #showColumns #showColumnsToggleAll #showExport) value: true;
 
 		addRowSelector;
@@ -87,7 +86,7 @@ SBSBootstrapTableApplicationExample >> createTable [
 				isSortable: true;
 				alignRight;
 				footerIsTotal;
-				renderBlock: [ :html :price | html text: ('$', price greaseString)];
+				renderBlock: [ :html :price | html text: ('$', price displayString)];
 				yourself);
 		addColumn: 
 			(SBSTableColumn new

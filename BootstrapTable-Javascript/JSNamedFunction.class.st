@@ -8,6 +8,24 @@ Class {
 	#package : 'BootstrapTable-Javascript'
 }
 
+{ #category : 'instance creation' }
+JSNamedFunction class >> named: aString function: aJSFunction [
+
+	"Private - Answer an instance of the receiver named aString with the same internals as aJSFunction"
+
+	| instance |
+
+	instance := self new.
+	instance name: aString.
+	1 to: JSFunction instSize do: 
+		[ :index || val |
+		val := aJSFunction instVarAt: index.
+		val == aJSFunction
+			ifTrue: [instance instVarAt: index put: instance]
+			ifFalse: [instance instVarAt: index put: val]].
+	^instance
+]
+
 { #category : 'printing' }
 JSNamedFunction >> javascriptContentOn: aStream [
 	aStream 

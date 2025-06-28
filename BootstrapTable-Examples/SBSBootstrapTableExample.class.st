@@ -26,6 +26,12 @@ SBSBootstrapTableExample class >> ordering [
 	^SmallInteger maximum
 ]
 
+{ #category : 'accessing' }
+SBSBootstrapTableExample >> children [
+
+	^{self table}
+]
+
 { #category : 'initialize-release' }
 SBSBootstrapTableExample >> createTable [
 

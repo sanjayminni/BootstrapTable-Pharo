@@ -104,6 +104,9 @@ SBSTable >> applyOptionsTo: aTable on: html [
 			option: #detailView value: true;
 			option: #detailFormatter value: ('detailFormatter', self id)].
 
+	(self hasExport and: [(self hasOption: #exportTypes) not]) ifTrue: 
+		[self option: #exportTypes value: #('json' 'xml' 'png' 'csv' 'txt' 'sql' 'doc' 'excel' 'xlsx' 'pdf') asJson].
+
 	self applyOptionsTo: aTable
 ]
 
@@ -319,6 +322,12 @@ SBSTable >> hasDetailComponent [
 ]
 
 { #category : 'testing' }
+SBSTable >> hasExport [
+
+	^self isOption: #showExport
+]
+
+{ #category : 'testing' }
 SBSTable >> hasFooter [
 
 	^(self isOption: #showFooter) and: [self columns anySatisfy: [ :each | each hasFooter]]
@@ -482,9 +491,9 @@ SBSTable >> json [
 	| requestFields start size stream results footerData |
 
 	rowsByIndex := OrderedCollection new: 20.
-	self hasServerSidePagination ifFalse: [^(self data collect: [ :each | self rowDataFor: each]) asJson].
-
 	requestFields := self requestContext request queryFields.
+	(self hasServerSidePagination and: [requestFields includesKey: #offset]) ifFalse: [^(self data collect: [ :each | self rowDataFor: each]) asJson].
+
 	self hasSearch ifTrue: [self setSearchString: (requestFields at: 'search' ifAbsent: [''])].
 	start := (requestFields at: 'offset') asInteger.
 	size := (requestFields at: 'limit') asInteger.
@@ -710,7 +719,7 @@ SBSTable >> renderClickEventHandlerOn: html [
 				callback: [ :ids | self handleSelectionsChangedCallback: ids] value: (html javascript alias: 'ids');
 				yourself).
 
-	html script: function asJavascript.
+	html script: function.
 
 	jqSelf := self onClient: html.
 	handlerFunction := (jqSelf data assignLocalTo: 'rows') asFunction: #('elem').
@@ -773,7 +782,7 @@ SBSTable >> renderDetailScriptOn: html [
 				yourself);
 		returnExpression: 'html'.
 
-	html script: function asJavascript
+	html script: function
 ]
 
 { #category : 'rendering' }
@@ -992,6 +1001,14 @@ SBSTable >> sortResetsPage [
 SBSTable >> unselectAll [
 
 	^self onClient unselectAll
+]
+
+{ #category : 'rendering' }
+SBSTable >> updateRoot: htmlRoot [
+
+	super updateRoot: htmlRoot.
+
+	self hasExport ifTrue: [SBSTableExportCDNDeploymentLibrary addLoadScriptTo: htmlRoot]
 ]
 
 { #category : 'jQuery' }

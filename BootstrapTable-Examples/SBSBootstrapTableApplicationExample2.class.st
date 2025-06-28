@@ -24,13 +24,12 @@ SBSBootstrapTableApplicationExample2 >> createTable [
 		id: #table;
 		fetchData;
 		list: self list;
-		"hasPagination: true;" "seems this has a conflict if set to true and #showPaginationSwitch is used - a walkback appears when switched"
+		hasPagination: true;
 		hasSearch: true;
 		hasFooter: true;
 		clickToSelect: true;
 		detailComponentClass: SBSTableExampleProductEditor;
 		option: #toolbar value: '#toolbar';
-		option: #exportTypes value: #('json' 'xml' 'png' 'csv' 'txt' 'sql' 'doc' 'excel' 'xlsx' 'pdf') asJson;
 		options: #(#showRefresh #showToggle #showFullscreen #showColumns #showColumnsToggleAll #showExport #showPaginationSwitch) value: true;
 
 		addRowSelector;
@@ -54,7 +53,7 @@ SBSBootstrapTableApplicationExample2 >> createTable [
 				isSortable: true;
 				alignRight;
 				footerIsTotal;
-				renderBlock: [ :html :price | html text: ('$', price greaseString)];
+				formatExpression: 'value.toLocaleString(''en-US'', {style: ''currency'', currency: ''USD''})';
 				yourself);
 		addColumn: 
 			(SBSTableColumn new

@@ -3,7 +3,7 @@ Library required for BSTable extensions: export
 "
 Class {
 	#name : 'SBSTableExportCDNDeploymentLibrary',
-	#superclass : 'SBSTableCDNDeploymentLibrary',
+	#superclass : 'SBSCDNDeploymentLibrary',
 	#category : 'BootstrapTable-Core',
 	#package : 'BootstrapTable-Core'
 }
@@ -11,6 +11,7 @@ Class {
 { #category : 'updating' }
 SBSTableExportCDNDeploymentLibrary class >> addLoadScriptTo: html [
 
+	super addLoadScriptTo: html.
 
 	html script
 			url: self cdnTableExportJSLocation ;
@@ -35,13 +36,7 @@ SBSTableExportCDNDeploymentLibrary class >> addLoadScriptTo: html [
 	html script
 			url: self cdnTableExportPngJSLocation ;
 			attributeAt: 'integrity' put: self cdnTableExportPngJSLocationIntegrity ;
-			attributeAt: 'crossorigin' put: 'anonymous'.
-			
-	html script
-			url: self cdnBSTableExportJSLocation ;
-			attributeAt: 'integrity' put: self cdnBSTableExportJSLocationIntegrity ;
-			attributeAt: 'crossorigin' put: 'anonymous'.
-				
+			attributeAt: 'crossorigin' put: 'anonymous'
 ]
 
 { #category : 'accessing - defaults' }
@@ -51,13 +46,13 @@ SBSTableExportCDNDeploymentLibrary class >> bsTableExportVersion [
 ]
 
 { #category : 'accessing - defaults' }
-SBSTableExportCDNDeploymentLibrary class >> cdnBSTableExportJSLocation [
+SBSTableExportCDNDeploymentLibrary class >> cdnJSLocation [
 
-	^'https://cdn.jsdelivr.net/npm/bootstrap-table@{1}/dist/extensions/export/bootstrap-table-export.min.js' format: { self bsTableVersion }
+	^'https://cdn.jsdelivr.net/npm/bootstrap-table@<1s>/dist/extensions/export/bootstrap-table-export.min.js' expandMacrosWith: SBSTableCDNDeploymentLibrary bsTableVersion
 ]
 
 { #category : 'accessing - defaults' }
-SBSTableExportCDNDeploymentLibrary class >> cdnBSTableExportJSLocationIntegrity [
+SBSTableExportCDNDeploymentLibrary class >> cdnJSLocationIntegrity [
 	"Calculated via https://www.srihash.org"
 
 	^ 'sha384-7r09ZDpaLqN4L3r6yF8GyAhZewpJIecqz6cN9M100QV+XX6obZ86FsTmXH6J0gc+'
@@ -66,7 +61,7 @@ SBSTableExportCDNDeploymentLibrary class >> cdnBSTableExportJSLocationIntegrity 
 { #category : 'accessing - defaults' }
 SBSTableExportCDNDeploymentLibrary class >> cdnTableExportFileSaverJSLocation [
 
-	^'https://cdn.jsdelivr.net/npm/tableexport.jquery.plugin@{1}/libs/FileSaver/FileSaver.min.js' format: { self bsTableExportVersion }
+	^'https://cdn.jsdelivr.net/npm/tableexport.jquery.plugin@<1s>/libs/FileSaver/FileSaver.min.js' expandMacrosWith: self bsTableExportVersion
 ]
 
 { #category : 'accessing - defaults' }
@@ -79,7 +74,7 @@ SBSTableExportCDNDeploymentLibrary class >> cdnTableExportFileSaverJSLocationInt
 { #category : 'accessing - defaults' }
 SBSTableExportCDNDeploymentLibrary class >> cdnTableExportJSLocation [
 
-	^'https://cdn.jsdelivr.net/npm/tableexport.jquery.plugin@{1}/tableExport.min.js' format: { self bsTableExportVersion }
+	^'https://cdn.jsdelivr.net/npm/tableexport.jquery.plugin@<1s>/tableExport.min.js' expandMacrosWith: self bsTableExportVersion
 ]
 
 { #category : 'accessing - defaults' }
@@ -92,7 +87,7 @@ SBSTableExportCDNDeploymentLibrary class >> cdnTableExportJSLocationIntegrity [
 { #category : 'accessing - defaults' }
 SBSTableExportCDNDeploymentLibrary class >> cdnTableExportJsPdfJSLocation [
 
-	^'https://cdn.jsdelivr.net/npm/tableexport.jquery.plugin@{1}/libs/jsPDF/jspdf.umd.min.js' format: { self bsTableExportVersion }
+	^'https://cdn.jsdelivr.net/npm/tableexport.jquery.plugin@<1s>/libs/jsPDF/jspdf.umd.min.js' expandMacrosWith: self bsTableExportVersion
 ]
 
 { #category : 'accessing - defaults' }
@@ -105,7 +100,7 @@ SBSTableExportCDNDeploymentLibrary class >> cdnTableExportJsPdfJSLocationIntegri
 { #category : 'accessing - defaults' }
 SBSTableExportCDNDeploymentLibrary class >> cdnTableExportPngJSLocation [
 
-	^'https://cdn.jsdelivr.net/npm/tableexport.jquery.plugin@{1}/libs/html2canvas/html2canvas.min.js' format: { self bsTableExportVersion }
+	^'https://cdn.jsdelivr.net/npm/tableexport.jquery.plugin@<1s>/libs/html2canvas/html2canvas.min.js' expandMacrosWith: self bsTableExportVersion
 ]
 
 { #category : 'accessing - defaults' }
@@ -118,7 +113,7 @@ SBSTableExportCDNDeploymentLibrary class >> cdnTableExportPngJSLocationIntegrity
 { #category : 'accessing - defaults' }
 SBSTableExportCDNDeploymentLibrary class >> cdnTableExportXlsxJSLocation [
 
-	^'https://cdn.jsdelivr.net/npm/tableexport.jquery.plugin@{1}/libs/js-xlsx/xlsx.core.min.js' format: { self bsTableExportVersion }
+	^'https://cdn.jsdelivr.net/npm/tableexport.jquery.plugin@<1s>/libs/js-xlsx/xlsx.core.min.js' expandMacrosWith: self bsTableExportVersion
 ]
 
 { #category : 'accessing - defaults' }

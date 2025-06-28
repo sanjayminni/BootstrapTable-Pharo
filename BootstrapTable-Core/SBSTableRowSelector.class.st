@@ -75,7 +75,7 @@ SBSTableRowSelector >> initialize [
 ]
 
 { #category : 'testing' }
-SBSTableRowSelector >> needsFormatterCallback [
+SBSTableRowSelector >> needsFormatterScript [
 
 	^self enablementBlock notNil
 ]
@@ -97,5 +97,5 @@ SBSTableRowSelector >> renderFormatterScriptOn: html [
 				yourself);
 		returnExpression: '{disabled: dis}'.
 
-	html script: function asJavascript
+	html script: function
 ]

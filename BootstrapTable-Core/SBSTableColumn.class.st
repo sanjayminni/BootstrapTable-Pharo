@@ -2,6 +2,7 @@ Class {
 	#name : 'SBSTableColumn',
 	#superclass : 'SBSTableSingleColumn',
 	#instVars : [
+		'formatterFunction',
 		'renderBlock',
 		'componentGenerator'
 	],
@@ -69,6 +70,42 @@ SBSTableColumn >> footerIsTotal [
 	self footerBlock: [self total]
 ]
 
+{ #category : 'accessing' }
+SBSTableColumn >> formatExpression: aString [
+
+	"Simplified interface to formatterFunction.
+	aString is a Javascript expression that will be used as the result of the formatterFunction.
+	Parameters to the function are value, row, index and field as per the documentation (see link in formatterFunction)"
+
+	self formatterFunction: 
+		(JSFunction new
+			arguments: #('value' 'row' 'index' 'field');
+			returnExpression: aString;
+			yourself)
+]
+
+{ #category : 'accessing' }
+SBSTableColumn >> formatterFunction [
+
+	"formatterFunction optionally stores a JSFunction which is used to render the value to be displayed in this column.
+	This maps to the formatter option of the column - https://bootstrap-table.com/docs/api/column-options/#formatter
+
+	This represents a client-side alternative to renderBlock for improved performance when displaying large datasets"
+
+	^formatterFunction
+]
+
+{ #category : 'accessing' }
+SBSTableColumn >> formatterFunction: aJSFunction [
+
+	"formatterFunction optionally stores a JSFunction which is used to render the value to be displayed in this column.
+	This maps to the formatter option of the column - https://bootstrap-table.com/docs/api/column-options/#formatter
+
+	This represents a client-side alternative to renderBlock for improved performance when displaying large datasets"
+
+	formatterFunction := aJSFunction
+]
+
 { #category : 'callbacks' }
 SBSTableColumn >> handleFooterCallback [
 
@@ -114,6 +151,12 @@ SBSTableColumn >> hasComponent [
 ]
 
 { #category : 'testing' }
+SBSTableColumn >> hasFormatterFunction [
+
+	^formatterFunction notNil
+]
+
+{ #category : 'testing' }
 SBSTableColumn >> hasRenderBlock [
 
 	^renderBlock notNil
@@ -132,9 +175,9 @@ SBSTableColumn >> isSearchable [
 ]
 
 { #category : 'testing' }
-SBSTableColumn >> needsFormatterCallback [
+SBSTableColumn >> needsFormatterScript [
 
-	^self hasSubComponent
+	^self hasFormatterFunction or: [self hasSubComponent]
 ]
 
 { #category : 'accessing' }
@@ -164,10 +207,10 @@ SBSTableColumn >> renderBlock: anObject [
 ]
 
 { #category : 'rendering' }
-SBSTableColumn >> renderFormatterScriptOn: html [
+SBSTableColumn >> renderFormatterCallbackScriptOn: html [
 
 	| functionName function statement |
-	
+
 	functionName := self option: #formatter.
 	function := JSFunction named: functionName arguments: #('value' 'row' 'index' 'field').
 
@@ -184,7 +227,24 @@ SBSTableColumn >> renderFormatterScriptOn: html [
 		add: statement; 
 		returnExpression: 'html'.
 
-	html script: function asJavascript
+	html script: function
+]
+
+{ #category : 'rendering' }
+SBSTableColumn >> renderFormatterFunctionOn: html [
+
+	| functionName |
+
+	functionName := self option: #formatter.
+	html script: (self formatterFunction named: functionName)
+]
+
+{ #category : 'rendering' }
+SBSTableColumn >> renderFormatterScriptOn: html [
+
+	self hasFormatterFunction
+		ifTrue: [self renderFormatterFunctionOn: html]
+		ifFalse: [self renderFormatterCallbackScriptOn: html]
 ]
 
 { #category : 'accessing' }
