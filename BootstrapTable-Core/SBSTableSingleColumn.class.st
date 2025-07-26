@@ -23,6 +23,14 @@ SBSTableSingleColumn >> accessAt: aSymbol [
 ]
 
 { #category : 'accessing' }
+SBSTableSingleColumn >> accessAtIndex: anInteger [
+
+    self 
+        fieldName: ('field', anInteger asString);
+        getContentsBlock: [ :obj | obj at: anInteger]
+]
+
+{ #category : 'accessing' }
 SBSTableSingleColumn >> accessor: aSymbol [
 
 	"Configure the receiver to display the value answered by a row object to the message aSymbol"
