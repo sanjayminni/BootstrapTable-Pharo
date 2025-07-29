@@ -100,7 +100,16 @@ SBSTableSingleColumn >> contentFromRow: anObject [
 { #category : 'constants' }
 SBSTableSingleColumn >> defaultSortBlock [
 
-	^[ :a :b | (self contentFromRow: a) <= (self contentFromRow: b)]
+	"to handle nil values - nil values will precede other values in code below "
+
+	^ [ :a :b | 
+		(self contentFromRow: a) 
+			ifNil: [ true ]
+		 	ifNotNil: [  (self contentFromRow: b) 
+				ifNil: [ false ] 
+				ifNotNil: [ (self contentFromRow: a) <= (self contentFromRow: b)] 
+			] 
+		]
 ]
 
 { #category : 'accessing' }
