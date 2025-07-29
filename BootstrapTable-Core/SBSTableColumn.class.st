@@ -59,7 +59,7 @@ SBSTableColumn >> footerForData [
 	self hasFooter ifFalse: [^nil].
 	self hasRenderBlock ifFalse: [^super footerForData].
 
-	^WAHtmlCanvas builder
+	^SBSHtmlCanvas builder
 		fullDocument: false;
 		render: [ :html |self renderBlock cull: html cull: footerBlock value]
 ]
@@ -114,7 +114,7 @@ SBSTableColumn >> handleFooterCallback [
 		response 
 			contentType: self application contentType;
 			nextPutAll: 
-				(WAHtmlCanvas builder
+				(SBSHtmlCanvas builder
 					fullDocument: false;
 					render: 
 						[ :html |
@@ -134,7 +134,7 @@ SBSTableColumn >> handleFormatterCallbackForRowId: anInteger [
 			response 
 				contentType: self application contentType;
 				nextPutAll: 
-					(WAHtmlCanvas builder
+					(SBSHtmlCanvas builder
 						fullDocument: false;
 						render: 
 							[ :html |

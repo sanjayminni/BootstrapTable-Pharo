@@ -177,7 +177,7 @@ SBSTableSingleColumn >> handleFooterCallback [
 		response 
 			contentType: self application contentType;
 			nextPutAll: 
-				(WAHtmlCanvas builder
+				(SBSHtmlCanvas builder
 					fullDocument: false;
 					render: 
 						[ :html |
