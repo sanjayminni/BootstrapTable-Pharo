@@ -23,6 +23,14 @@ SBSTableSingleColumn >> accessAt: aSymbol [
 ]
 
 { #category : 'accessing' }
+SBSTableSingleColumn >> accessAtIndex: anInteger [
+
+    self 
+        fieldName: ('field', anInteger asString);
+        getContentsBlock: [ :obj | obj at: anInteger]
+]
+
+{ #category : 'accessing' }
 SBSTableSingleColumn >> accessor: aSymbol [
 
 	"Configure the receiver to display the value answered by a row object to the message aSymbol"
@@ -92,7 +100,16 @@ SBSTableSingleColumn >> contentFromRow: anObject [
 { #category : 'constants' }
 SBSTableSingleColumn >> defaultSortBlock [
 
-	^[ :a :b | (self contentFromRow: a) <= (self contentFromRow: b)]
+	"to handle nil values - nil values will precede other values in code below "
+
+	^ [ :a :b | 
+		(self contentFromRow: a) 
+			ifNil: [ true ]
+		 	ifNotNil: [  (self contentFromRow: b) 
+				ifNil: [ false ] 
+				ifNotNil: [ (self contentFromRow: a) <= (self contentFromRow: b)] 
+			] 
+		]
 ]
 
 { #category : 'accessing' }
@@ -169,7 +186,7 @@ SBSTableSingleColumn >> handleFooterCallback [
 		response 
 			contentType: self application contentType;
 			nextPutAll: 
-				(WAHtmlCanvas builder
+				(SBSHtmlCanvas builder
 					fullDocument: false;
 					render: 
 						[ :html |
